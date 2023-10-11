@@ -1,7 +1,8 @@
+import AddNote from './AddNote';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import noteContext from "../context/notes/NoteContext";
 import NoteItem from './NoteItem';
-import AddNote from './AddNote';
+import { useNavigate } from 'react-router-dom';
 
 const Notes = (props) => {
     const context = useContext(noteContext);
@@ -9,10 +10,16 @@ const Notes = (props) => {
     const [note, setNote] = useState({etitle: "", edescription: "", etag: ""});
     const ref = useRef(null);
     const refClose = useRef(null);
+    let navigate = useNavigate();
     useEffect(() => {
+        if(localStorage.getItem("token")){
         getNotes()
+    }
+    else{
+        navigate("/login")
+        
         //eslint-disable-next-line
-    }, [])
+    }}, [])
     const updateNote = (currentNote) => {
         ref.current.click();
         setNote({id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag:currentNote.tag})
@@ -35,10 +42,10 @@ const Notes = (props) => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Edit Note</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                            <h5 className="modal-title" id="exampleModalLabel">Edit Note</h5>
                         </div>
                         <div className="modal-body">
                             <form className="my-3">

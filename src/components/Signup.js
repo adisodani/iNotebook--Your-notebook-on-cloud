@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const Signup = (props) => {
-  const [credentials, setCredentials] = useState({name:"", email: "", password: "", cpassword: "" });
+  const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" });
   let navigate = useNavigate();
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {name, email, password} = credentials;  
+    const { name, email, password } = credentials;
     const response = await fetch("http://localhost:5000/api/auth/createuser", {
-    method: 'POST',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({name, email, password })
+      body: JSON.stringify({ name, email, password })
     });
     const json = await response.json();
     console.log(json);
@@ -31,7 +31,8 @@ const Signup = (props) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
   return (
-    <div className="container">
+    <div className="container mt-3">
+      <h2 className="mb-3"> Sign up to use to iNotebook</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group my-2">
           <label htmlFor="name">Name</label>
@@ -43,11 +44,11 @@ const Signup = (props) => {
         </div>
         <div className="form-group my-2">
           <label htmlFor="password">Password</label>
-          <input type="password" className="form-control my-2" id="password" name="password" onChange={onChange} placeholder="Enter Password" minLength={5} required/>
+          <input type="password" className="form-control my-2" id="password" name="password" onChange={onChange} placeholder="Enter Password" minLength={5} required />
         </div>
         <div className="form-group my-2">
           <label htmlFor="cpassword">Confirm Password</label>
-          <input type="password" className="form-control my-2" id="cpassword" name="cpassword" onChange={onChange} placeholder="Enter Password" minLength={5} required/>
+          <input type="password" className="form-control my-2" id="cpassword" name="cpassword" onChange={onChange} placeholder="Enter Password" minLength={5} required />
         </div>
 
         <button type="submit" className="btn btn-primary my-2">Sign Up</button>
