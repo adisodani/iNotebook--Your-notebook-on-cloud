@@ -5,7 +5,8 @@ const NoteState = (props) => {
   const host = "http://localhost:5000"
   const notesInitial = []
   const [notes, setNotes] = useState(notesInitial)
-
+  const authToken= localStorage.getItem('token');
+  
   //Get all notes
   const getNotes = async () => {
     // API Call 
@@ -13,7 +14,7 @@ const NoteState = (props) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUyM2MyZjcyNzUwN2NmY2QwZjViMmVmIn0sImlhdCI6MTY5Njg0MjY3Nn0._P7RKfXjWTIIfy4l-V3tv8GPFwnxzu6dCLgisjFBNsQ"
+        "auth-token": authToken
       }
     });
     const json = await response.json()
@@ -27,7 +28,7 @@ const NoteState = (props) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUyM2MyZjcyNzUwN2NmY2QwZjViMmVmIn0sImlhdCI6MTY5Njg0MjY3Nn0._P7RKfXjWTIIfy4l-V3tv8GPFwnxzu6dCLgisjFBNsQ"
+        "auth-token": authToken
       },
       body: JSON.stringify({ title, description, tag })
     });
@@ -42,12 +43,11 @@ const NoteState = (props) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUyM2MyZjcyNzUwN2NmY2QwZjViMmVmIn0sImlhdCI6MTY5Njg0MjY3Nn0._P7RKfXjWTIIfy4l-V3tv8GPFwnxzu6dCLgisjFBNsQ"
+        "auth-token": authToken
       },
       body: JSON.stringify({ title, description, tag })
     });
     const json = await response.json(); 
-
     let newNotes= JSON.parse(JSON.stringify(notes))
     // Logic to edit in client
     for (let index = 0; index < newNotes.length; index++) {
@@ -68,7 +68,7 @@ const NoteState = (props) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUyM2MyZjcyNzUwN2NmY2QwZjViMmVmIn0sImlhdCI6MTY5Njg0MjY3Nn0._P7RKfXjWTIIfy4l-V3tv8GPFwnxzu6dCLgisjFBNsQ"
+        "auth-token": authToken
       }
     });
     const json = response.json();
